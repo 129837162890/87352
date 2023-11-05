@@ -2,8 +2,7 @@ import speech_recognition as sr
 from colorama import Fore,init
 init(autoreset=True)
 import openai
-import json
-from google.cloud import texttospeech
+import simplejson as json
 import system
 from tts_api import speak
 import time
@@ -14,7 +13,7 @@ def listen_for_trigger():
         userInfoTue = json.load(userInfoTueAc)
 
     r = sr.Recognizer() 
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     def record(ask=False):
         with sr.Microphone() as source:
@@ -25,9 +24,10 @@ def listen_for_trigger():
             try:
                 voice = r.recognize_google(audio, language='tr-TR')
             except sr.UnknownValueError:
-                print("Err. Status: 1")
+                print(Fore.RED + "SB-9500: " + Fore.WHITE + "Dinlemeye devam ediyorum.")
             except sr.Recognizer():
                 speak("Sistem çalışmıyor.")
+                print(Fore.RED + "- SERVER CALISMIYOR - (server.py)")
             return voice
 
     def response(voice):
